@@ -3,5 +3,7 @@ CREATE TABLE secrets (
     id uuid PRIMARY KEY,
     secret VARCHAR NOT NULL,
     hash_secret_phrase VARCHAR NOT NULL,
-    is_activa BOOLEAN DEFAULT TRUE
+    is_active BOOLEAN DEFAULT TRUE
 );
+
+DROP TABLE secrets;

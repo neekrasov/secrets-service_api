@@ -1,6 +1,28 @@
 from aiohttp import web
 
 from utils.context import Context
+from services.generate_secret import create_secret
+import logging
+
+logger = logging.getLogger("app.api.v1.generate_secret")
 
 async def handler(request: web.Request, context: Context):
-    return web.Response(text="generate_handler")
+    logger.debug(request)
+    if request.body_exists:
+       data = await request.json()
+       secret = data.get("secret", None)
+       secret_phrase = data.get("secret_phrase", None)
+       
+       if secret == None or secret_phrase == None:
+           logger.debug("You have entered incomplete data")
+           raise web.HTTPBadRequest(
+            body="You have entered incomplete data"
+        )
+       await create_secret(secret, secret_phrase, context.db)
+        
+    else:
+        logger.debug("Body not entered")
+        raise web.HTTPBadRequest(
+            body="Body not entered"
+        )
+    return web.Response(status=200)

@@ -35,7 +35,7 @@ def read_env() -> dict:
 def main(): 
     params = read_env()
     settings = Settings(**params)
-    init_logginng(str(pathlib.Path(__name__).parent) + __name__, settings)
+    init_logginng("app", settings)
     app = asyncio.run(create_app(settings))
     web.run_app(app)
     

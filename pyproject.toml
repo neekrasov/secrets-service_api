@@ -12,6 +12,7 @@ aiohttp = {extras = ["speedups"], version = "^3.8.3"}
 asyncpg = "^0.26.0"
 aiosql = "^6.5"
 python-dotenv = "^0.21.0"
+passlib = "^1.7.4"
 
 
 [build-system]
