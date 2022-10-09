@@ -1,5 +1,5 @@
 from aiohttp import web
-from utils.context import Context
+from ..utils.context import Context
 from .v1 import generate_secret, get_secret
 
 

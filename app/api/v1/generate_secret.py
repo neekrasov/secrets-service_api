@@ -1,7 +1,7 @@
 from aiohttp import web
 
-from utils.context import Context
-from services.generate_secret import create_secret
+from ...utils.context import Context
+from ...services.generate_secret import create_secret
 import logging
 
 logger = logging.getLogger("app.api.v1.generate_secret")

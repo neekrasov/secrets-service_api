@@ -1,9 +1,9 @@
 from cmath import log
 import logging
 from aiohttp import web
-from services.get_secrets import get_secret, set_secret_expired
+from ...services.get_secrets import get_secret, set_secret_expired
 
-from utils.context import Context
+from ...utils.context import Context
 
 logger = logging.getLogger("app.api.v1.get_secret")
 

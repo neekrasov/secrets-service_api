@@ -4,10 +4,10 @@ import pathlib
 from dotenv import load_dotenv
 
 from aiohttp import web
-from api import routes
-from utils.logging import init_logginng
-from utils.context import Context
-from utils.settings import Settings
+from .api import routes
+from .utils.logging import init_logginng
+from .utils.context import Context
+from .utils.settings import Settings
 
 async def create_app(settings: Settings) -> web.Application:
     app = web.Application()
