@@ -28,7 +28,8 @@ def read_env() -> dict:
         "postgres_host": os.getenv("POSTGRES_HOST"),
         "postgres_db": os.getenv("POSTGRES_DB"),
         "postgres_port": os.getenv("POSTGRES_PORT"),
-        "logging_level": os.getenv("LOGGING_LEVEL")
+        "logging_level": os.getenv("LOGGING_LEVEL"),
+        "hash_salt": os.getenv("HASH_SALT"),
     }
     return params
 

@@ -7,6 +7,7 @@ class Settings():
     postgres_host: str
     postgres_db: str
     postgres_port: str
+    hash_salt:str 
     logging_level: str = "DEBUG"
     title: str = "Secrets-service"
     descriprion: str = "Service for storing one-time secrets"

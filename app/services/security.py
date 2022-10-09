@@ -1,10 +1,8 @@
-from passlib.context import CryptContext
+from passlib.hash import bcrypt
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-def verify_secret_phrase(plain_phrase: str, hashed_phrase: str) -> bool:
-    return pwd_context.verify(plain_phrase, hashed_phrase)
+def verify_secret_key(plain_secret_key: str, hashed_secret_key: str, salt: str) -> bool:
+    return bcrypt.using(salt=salt).verify(plain_secret_key, hashed_secret_key)
 
 
-def get_secret_phrase_hash(secret_phrase: str) -> str:
-    return pwd_context.hash(secret_phrase)
+def get_secret_key_hash(secret_key: str, salt: str) -> str:
+    return bcrypt.using(salt=salt).hash(secret_key)

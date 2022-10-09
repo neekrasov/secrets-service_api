@@ -18,7 +18,7 @@ def setup_routes(app: web.Application, context: Context):
         ),
     )
     app.router.add_get(
-        '/api/v1/secrets/{id}',
+        '/api/v1/secrets/{secret_key}',
         handler_decorator(
             handler=get_secret.handler,
             context=context,
