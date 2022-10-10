@@ -6,14 +6,14 @@
 ## Запуск
 
 1.  Клонировать репозиторий
-    ```
-    ~$ git clone https://github.com/neekrasov/secrets-service_api.git
-    ```
+```
+~$ git clone https://github.com/neekrasov/secrets-service_api.git
+```
 2. Создать файл dev.env на примере example.env
-    ```
-    ~$ cp example.env dev.env
-    ```
+```
+~$ cp example.env dev.env
+```
 3. Поднять контейнеры
-    ```
-    ~$ docker-compose up
-    ```
+```
+~$ docker-compose up
+```
