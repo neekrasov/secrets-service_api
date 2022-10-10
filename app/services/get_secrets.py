@@ -1,7 +1,7 @@
 import logging
 from asyncpg import Pool, Record
 from ..db.queries.queries import queries
-from ..services.security import get_secret_key_hash
+from .security import get_secret_key_hash
 
 logger = logging.getLogger("app.api.v1.get_secret")
 

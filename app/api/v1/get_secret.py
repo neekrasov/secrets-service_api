@@ -1,4 +1,3 @@
-from cmath import log
 import logging
 from aiohttp import web
 from ...services.get_secrets import get_secret, set_secret_expired

@@ -2,12 +2,11 @@ import asyncio
 import os
 import pathlib
 from dotenv import load_dotenv
-
 from aiohttp import web
-from .api import routes
-from .utils.logging import init_logginng
-from .utils.context import Context
-from .utils.settings import Settings
+from app.api import routes
+from app.utils.logging import init_logginng
+from app.utils.context import Context
+from app.utils.settings import Settings
 
 async def create_app(settings: Settings) -> web.Application:
     app = web.Application()
@@ -21,7 +20,7 @@ async def create_app(settings: Settings) -> web.Application:
     return app
 
 def read_env() -> dict:
-    load_dotenv(dotenv_path=pathlib.Path(__file__).parent.parent / "dev.env")
+    load_dotenv(dotenv_path=pathlib.Path(__file__).parent / "dev.env")
     params = {
         "postgres_user": os.getenv("POSTGRES_USER"),
         "postgres_password": os.getenv("POSTGRES_PASSWORD"),
@@ -40,5 +39,5 @@ def main():
     app = asyncio.run(create_app(settings))
     web.run_app(app)
     
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

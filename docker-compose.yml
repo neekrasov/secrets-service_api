@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  database:
+    container_name: postgres
+    build: 
+      dockerfile: db.Dockerfile
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - scripts:/docker-entrypoint-initdb.d/
+    ports:
+      - '5432:5432'
+    env_file:
+      - dev.env
+  
+  api:
+    container_name: secrets_api
+    build: ./
+    restart: always
+    ports:
+      - '8000:8000'
+    env_file:
+      - dev.env
+    depends_on:
+      - database
+
+
+volumes:
+  postgres_data:
+  scripts:
