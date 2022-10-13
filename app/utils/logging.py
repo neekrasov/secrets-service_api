@@ -1,9 +1,9 @@
 import logging
-from .settings import Settings
+from app.utils.context import Context
 
-def init_logginng(name: str, settings: Settings):
+def setup_logginng(name: str, context: Context):
     logger = logging.getLogger(name)
-    logger.setLevel(settings.logging_level)
+    logger.setLevel(context.settings.logging_level)
     
     sh = logging.StreamHandler()
     sh.setFormatter(logging.Formatter('%(asctime)s : %(name)s: %(lineno)s : [%(levelname)s] -- %(message)s'))

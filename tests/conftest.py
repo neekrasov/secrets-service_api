@@ -1,13 +1,10 @@
 import pytest
-
+from main import create_app
 pytest_plugins = 'aiohttp.pytest_plugin'
 
 @pytest.fixture
 async def app():
-    from main import create_app, read_env
-    from app.utils.settings import Settings
-    app = await create_app(Settings(**read_env()))
-    return app
+    return await create_app()
 
 @pytest.fixture
 async def client(aiohttp_client, app):
