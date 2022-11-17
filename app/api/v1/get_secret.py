@@ -1,27 +1,26 @@
 import logging
 from aiohttp import web
-from ...services.get_secrets import get_secret, set_secret_expired
+from dependency_injector.wiring import inject, Provide
 
-from ...utils.context import Context
+from app.services import SecretService
+from app.utils import Container
 
 logger = logging.getLogger("app.api.v1.get_secret")
 
-async def handler(request: web.Request, context: Context):
+
+@inject
+async def handler(
+    request: web.Request,
+    secret_service: SecretService = Provide[Container.secret_service],
+) -> web.Response:
+
     logger.debug(request)
-    
-    secret_key = request.match_info['secret_key']
-    secret = await get_secret(
-        secret_key=secret_key,
-        pool=context.db,
-        salt=context.settings.hash_salt
-    )
+    secret_key = request.match_info["secret_key"]
+    secret = await secret_service.get_secret(secret_key)
     if not secret:
         raise web.HTTPBadRequest(
             body="A secret with such a key does not exist or has expired."
         )
-    await set_secret_expired(secret_key, context.db, context.settings.hash_salt) 
-    
-    return web.json_response(
-        {"secret" :secret['secret']},
-        status=200
-    )
+    await secret_service.set_secret_expired(secret_key)
+
+    return web.json_response({"secret": secret["secret"]}, status=200)

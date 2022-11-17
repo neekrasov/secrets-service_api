@@ -1,26 +1,23 @@
-from dataclasses import dataclass
-from aiohttp import web
+from dataclasses import dataclass, asdict
 import os
 import pathlib
 from dotenv import load_dotenv
 
+
 @dataclass
-class Settings():
-    postgres_user: str = "postgres"
-    postgres_password: str = ""
-    postgres_host: str = "localhost"
-    postgres_db: str = "postgres"
-    postgres_port: str = "5432"
-    hash_salt: str = ""
-    logging_level: str = "DEBUG"
-    title: str = "Secrets-service"
-    descriprion: str = "Service for storing one-time secrets"
+class Settings:
+    postgres_user: str | None = "postgres"
+    postgres_password: str | None = ""
+    postgres_host: str | None = "localhost"
+    postgres_db: str | None = "postgres"
+    postgres_port: str | None = "5432"
+    hash_salt: str | None = ""
+    logging_level: str | None = "DEBUG"
+    title: str | None = "Secrets-service"
+    descriprion: str | None = "Service for storing one-time secrets"
     postgres_driver = "asyncpg"
-    
-    @property
-    def postgres_dsn(self) -> str:
-        return f"postgres://{self.postgres_user}:{self.postgres_password}@{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"
-    
+    postgres_dsn: str | None = None
+
     def read_env(self):
         load_dotenv(dotenv_path=pathlib.Path(__file__).parent.parent.parent / "dev.env")
         self.postgres_user = os.getenv("POSTGRES_USER")
@@ -30,3 +27,13 @@ class Settings():
         self.postgres_port = os.getenv("POSTGRES_PORT")
         self.logging_level = os.getenv("LOGGING_LEVEL")
         self.hash_salt = os.getenv("HASH_SALT")
+        self.postgres_dsn = "postgres://{user}:{password}@{host}:{port}/{db}".format(
+            user=self.postgres_user,
+            password=self.postgres_password,
+            host=self.postgres_host,
+            port=self.postgres_port,
+            db=self.postgres_db,
+        )
+
+    def get_dict(self):
+        return asdict(self)

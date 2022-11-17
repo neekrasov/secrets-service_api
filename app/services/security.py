@@ -1,8 +1,12 @@
 from passlib.hash import bcrypt
 
-def verify_secret_key(plain_secret_key: str, hashed_secret_key: str, salt: str) -> bool:
-    return bcrypt.using(salt=salt).verify(plain_secret_key, hashed_secret_key)
 
+class SecurityService:
+    def __init__(self, salt: str):
+        self.salt = salt
 
-def get_secret_key_hash(secret_key: str, salt: str) -> str:
-    return bcrypt.using(salt=salt).hash(secret_key)
+    def verify_secret_key(self, plain_secret_key: str, hashed_secret_key: str) -> bool:
+        return bcrypt.using(salt=self.salt).verify(plain_secret_key, hashed_secret_key)
+
+    def get_secret_key_hash(self, secret_key: str) -> str:
+        return bcrypt.using(salt=self.salt).hash(secret_key)
